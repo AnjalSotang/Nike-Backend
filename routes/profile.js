@@ -35,7 +35,7 @@ var storage = multer.diskStorage({
   });
 
 
-router.post('/updateProfile', upload("image"), checkTokenAndRole("user"), updateProfile);
+router.post('/updateProfile', upload.single("image"), checkTokenAndRole("user"), updateProfile);
 router.get('/findProfile',checkTokenAndRole("user"), findProfileById);
 
 module.exports= router;

@@ -7,20 +7,20 @@ const register = async (req, res) => {
     const { username, email, password } = req.body;
 
     try {
-        const existingUser = await users.findOne({ where: { email: email } });
+        const existingUser = await users.findOne({ where: { email } });
         if (!existingUser) {
             const hashedPassword = await bcrypt.hash(password, 8);
             const newUser = await users.create({ username: username, email: email, password: hashedPassword });
 
-              // Create the profile associated with the new user
+            // Create the profile associated with the new user
             const newProfile = await profile.create({
                 userId: newUser.id, // Link the profile to the new user
-                email: email
+                username: username
             });
 
             return res.status(201).json({
                 message: "Registration successful!",
-                user: newUser, // Optionally include user data, omitting sensitive information
+                user: newUser, 
                 profile: newProfile
             });
         } else {
@@ -28,13 +28,13 @@ const register = async (req, res) => {
                 message: "Registration not successful! Try another email."
             });
         }
-   }catch (error) {
-    return res.status(500).json({
-        message: "An error occurred during registration.",
-        error: error.message
-    });
-} 
-}
+    } catch (error) {
+        return res.status(500).json({
+            message: "An error occurred during registration.",
+            error: error.message
+        });
+    } 
+};
 
 
 const login = async (req, res) => {

@@ -2,7 +2,7 @@ const {profile} = require("../models");
 
 const updateProfile = async (req, res) => {
     let  id  = req.decoded.id;
-    let { bio, dateOfBirth} = req.body;
+    let  {username, bio, dateOfBirth} = req.body;
 
     let image = req.file.path;
 
@@ -13,8 +13,8 @@ const updateProfile = async (req, res) => {
             message: "Profile Not Found!"
         });
     } else {
-         await profile.update(
-            {bio: bio, dateOfBirth: dateOfBirth, imgae: image},
+        const update = await profile.update(
+            {username: username, bio: bio, dateOfBirth: dateOfBirth, imgae: image},
             {
                 where: {
                     userId: id,
