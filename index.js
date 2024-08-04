@@ -5,7 +5,7 @@ const app = express()
 const path = require("path")
 
 
-sequelize.sync({ force: 0});
+sequelize.sync({ force: true});
 
 
 // Built-in middleware functions for parsing request bodies

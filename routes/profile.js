@@ -4,6 +4,7 @@ const {findProfileById, updateProfile} = require("../controllers/profile");
 const { checkTokenAndRole } = require("../middleware/checkTokenAndRole");
 const router = express.Router()
 
+//Defining the storage configuration for upload files using multer.diskStorage()
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, "./uploads");
@@ -34,7 +35,7 @@ var storage = multer.diskStorage({
   });
 
 
-router.post('/updateProfile', upload.single("image"), checkTokenAndRole("user"), updateProfile);
+router.post('/updateProfile', upload("image"), checkTokenAndRole("user"), updateProfile);
 router.get('/findProfile',checkTokenAndRole("user"), findProfileById);
 
 module.exports= router;

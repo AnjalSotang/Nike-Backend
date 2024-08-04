@@ -2,8 +2,8 @@ const jwt = require("jsonwebtoken");
 
 const JWT_SECRET_KEY = "secret-key";
 
-// Middleware to check token and role
-function checkTokenAndRole(role) {
+// Middleware to check role
+let checkTokenAndRole = (role) => {
   return function (req, res, next) {
     // Get the token from the request header
     const token = req.headers["authorization"];
@@ -15,12 +15,11 @@ function checkTokenAndRole(role) {
 
     // Verify the token
     jwt.verify(token, JWT_SECRET_KEY, (err, decoded) => {
-        console.log(err)
       if (err) {
         
         return res.status(401).json({ error: "Failed to authenticate token." });
       }
-
+      
       console.log(decoded)
 
       // Check if user has the required role
@@ -36,6 +35,9 @@ function checkTokenAndRole(role) {
       req.decoded = decoded;
       next();
     });
+
+
   };
 }
+
 module.exports = { checkTokenAndRole };
