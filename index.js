@@ -3,9 +3,15 @@ const { users, sequelize } = require("./models/index");
 const bcrypt = require("bcrypt")
 const app = express()
 const path = require("path")
+const cors = require('cors')
 
 
 sequelize.sync({ force: false});
+
+
+app.use(cors({
+    origin: "*"
+}))
 
 
 // Built-in middleware functions for parsing request bodies
