@@ -53,7 +53,7 @@ const login = async (req, res) => {
             //Creating JsonWebToken
             let token = jwt.sign({ id: existingUser.id, role: existingUser.role }, "secret-key");
             //Sending the response token and existingUser
-            return res.status(201).json({
+            return res.status(200).json({
                 token: token, 
                 user: existingUser
             });
