@@ -24,6 +24,7 @@ db.Sequelize = Sequelize;
 
 db.users = require("./auth")(sequelize, Sequelize);
 db.profile = require("./profile")(sequelize, Sequelize);
+db.category = require("./category")(sequelize, Sequelize);
 
 db.users.hasOne(db.profile);
 db.profile.belongsTo(db.users)

@@ -31,6 +31,9 @@ app.use("/auth", routeAuth)
 const routeProfile = require("./routes/profile");
 app.use("/api", routeProfile)
 
+const routeCategory = require("./routes/category");
+app.use("/api", routeCategory)
+
 const createUser = async () => {
     let foundAdmin = await users.findOne({
         where: {
