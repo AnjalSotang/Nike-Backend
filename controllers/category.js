@@ -3,9 +3,8 @@ const db = require("../models");
 
 const createCategory = async (req, res) => {
   let { name } = req.body;
-  let image = req.file.path;
 
-  const response = await db.category.create({ name: name, image: image });
+  const response = await db.category.create({ name: name });
   res.status(200).json({
     message: "Category created successfully",
     data: response
