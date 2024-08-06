@@ -6,6 +6,6 @@ const router = express.Router()
 router.post('/createCategory', checkTokenAndRole("admin"), createCategory);
 router.get('/findAllCategory', findAllCategory);
 router.patch('/updateCategory', checkTokenAndRole("admin"), updateCategory);
-router.patch('/deleteCategory', checkTokenAndRole("admin"), deleteCategory);
+router.delete('/deleteCategory/:id', checkTokenAndRole("admin"), deleteCategory);
 
 module.exports = router;

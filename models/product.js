@@ -14,6 +14,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         stock: {
             type: Sequelize.INTEGER
+        },
+        image: {
+            type: Sequelize.JSON,
         }
     })
 

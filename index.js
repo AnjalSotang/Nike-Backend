@@ -6,12 +6,12 @@ const path = require("path")
 const cors = require('cors')
 
 
-sequelize.sync({ force: false});
+sequelize.sync({ force: 0});
 
 
 app.use(cors({
     origin: "*"
-}))
+}))     
 
 
 // Built-in middleware functions for parsing request bodies
@@ -33,6 +33,9 @@ app.use("/api", routeProfile)
 
 const routeCategory = require("./routes/category");
 app.use("/api", routeCategory)
+
+const routeProduct = require("./routes/product");
+app.use("/api", routeProduct)
 
 const createUser = async () => {
     let foundAdmin = await users.findOne({
