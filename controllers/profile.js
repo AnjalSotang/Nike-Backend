@@ -8,12 +8,11 @@ const updateProfile = async (req, res) => {
 
     const profiles = await profile.findOne({where:{userId: id}});
     if (!profiles) {
-        console.log('Not found!');
         return res.status(404).json({
             message: "Profile Not Found!"
         });
     } else {
-        const update = await profile.update(
+            await profile.update(
             {username: username, bio: bio, dateOfBirth: dateOfBirth, imgae: image},
             {
                 where: {
@@ -21,7 +20,7 @@ const updateProfile = async (req, res) => {
                 },
             },
         );
-        return res.status(500).json({
+        return res.status(200).json({
             message: "updated successfully"
         });
     }
@@ -32,15 +31,17 @@ const findProfileById = async (req, res) => {
     let userId = req.decoded.id;
     console.log(userId)
     const Profile = await profile.findOne({ where: { userId: userId } });
-    if (profile === null) {
-        console.log('Not found!');
+    if(!profile) {
+       return res.status(500).json({
+            message: "Profile Not Found"
+        });
+        
     } else {
-        res.send({
+        return res.status(200).json({
             Profile
-        })
+        });
     }
 }
-
 
 
 

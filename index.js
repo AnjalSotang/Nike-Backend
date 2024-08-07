@@ -38,6 +38,9 @@ app.use("/api", routeCategory)
 const routeProduct = require("./routes/product");
 app.use("/api", routeProduct)
 
+const routeWish = require("./routes/wishlist");
+app.use("/api", routeWish )
+
 const createUser = async () => {
     let foundAdmin = await users.findOne({
         where: {
