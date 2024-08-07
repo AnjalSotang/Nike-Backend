@@ -2,7 +2,7 @@ const { where } = require("sequelize");
 const {product} = require("../models");
 
 const createProduct = async (req, res) => {
-  let { name, price, description,features, stock} = req.body;
+  let { name, price, description,features, stock, categoryId} = req.body;
   let image = req.files;
 
 
@@ -10,7 +10,7 @@ const createProduct = async (req, res) => {
 
   const existingProduct = await product.findOne({where: {name: name}})
   if(!existingProduct){
-    const response = await product.create({ name: name, price: price, description: description,features: features, stock: stock, image: imagePaths });
+    const response = await product.create({ name: name, price: price, description: description,features: features, stock: stock, image: imagePaths, categoryId: categoryId });
     if (response) {
       res.status(200).json({
         message: "Product Created Successfully"
@@ -51,7 +51,7 @@ const findAllProduct = async (req, res) => {
 
 const updateProduct = async (req, res) => {
   let { id } = req.params;
-  let { name, price, description,features, stock} = req.body;
+  let { name, price, description,features, stock, categoryId} = req.body;
   let image = req.files;
 
   let imagePaths = image.map((a)=> a.path)
@@ -60,7 +60,7 @@ const updateProduct = async (req, res) => {
 
   if (productFound) {
     let response = await product.update(
-      { name: name, price: price, description: description,features: features, stock: stock, image: imagePaths  },
+      { name: name, price: price, description: description,features: features, stock: stock, image: imagePaths, categoryId: categoryId  },
       {
         where: {
           id: id,
