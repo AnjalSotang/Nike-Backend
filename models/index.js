@@ -33,5 +33,4 @@ db.profile.belongsTo(db.users)
 db.category.hasMany(db.product);
 db.product.belongsTo(db.category);
 
-
 module.exports = db;

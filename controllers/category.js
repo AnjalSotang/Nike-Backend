@@ -16,6 +16,21 @@ const createCategory = async (req, res) => {
   }
 }
 
+const categoryById = async (req, res) => {
+  let {id} = req.params;
+
+  const response = await db.category.findByPk(id)
+  if (response) {
+    res.status(200).json({
+      data: response
+    })
+  } else {
+    res.status(500).json({
+      message: "Somethin went wrong"
+    })
+  }
+}
+
 const findAllCategory = async (req, res) => {
     const response = await db.category.findAll()
     res.status(200).json({
@@ -74,6 +89,7 @@ const deleteCategory = async (req, res) => {
 
 module.exports = {
   createCategory,
+  categoryById,
   findAllCategory,
   updateCategory,
   deleteCategory

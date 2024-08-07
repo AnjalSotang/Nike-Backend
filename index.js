@@ -17,7 +17,7 @@ app.use(cors({
 // Built-in middleware functions for parsing request bodies
 // Using these middlewares ensures that your Express application can handle and parse both JSON and URL-encoded data from incoming requests.
 app.use(express.json()); // Parse JSON payloads
-app.use(express.urlencoded({ extended: true })); // Parse URL-encoded payloads
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded payloads parse the form data
 
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
