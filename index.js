@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt")
 const app = express()
 const path = require("path")
 const cors = require('cors')
+require('dotenv').config();
 
 
 sequelize.sync({ force: 0});
@@ -59,4 +60,6 @@ const createUser = async () => {
 }
 createUser()
 
-app.listen(3001, () => console.log("Server started running!!"))
+const port = process.env.PORT || 4000;
+
+app.listen(port, () => console.log("Server started running!!"))
