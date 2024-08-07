@@ -27,6 +27,21 @@ const createProduct = async (req, res) => {
   }
 }
 
+const productById = async (req, res) => {
+  let {id} = req.params;
+
+  const response = await product.findByPk(id)
+  if (response) {
+    res.status(200).json({
+      data: response
+    })
+  } else {
+    res.status(500).json({
+      message: "Product not found"
+    })
+  }
+}
+
 const findAllProduct = async (req, res) => {
     const response = await product.findAll()
     res.status(200).json({
@@ -34,15 +49,18 @@ const findAllProduct = async (req, res) => {
     })
   }
 
-const updateCategory = async (req, res) => {
+const updateProduct = async (req, res) => {
   let { id } = req.params;
-  let { name } = req.body;
+  let { name, price, description,features, stock} = req.body;
+  let image = req.files;
 
-  const categoryFound = await db.category.findOne({where:{id: id} });
+  let imagePaths = image.map((a)=> a.path)
 
-  if (categoryFound) {
-    let response = await db.category.update(
-      { name: name },
+  const productFound = await product.findOne({where:{id: id} });
+
+  if (productFound) {
+    let response = await product.update(
+      { name: name, price: price, description: description,features: features, stock: stock, image: imagePaths  },
       {
         where: {
           id: id,
@@ -51,41 +69,42 @@ const updateCategory = async (req, res) => {
     );
     if (response) {
       res.status(200).json({
-        message: "Updated successfully"
+        message: "Product updated successfully"
       })
     } else {
       res.status(500).json({
-        message: "not found"
+        message: "Update was not successful"
       })
     }
   } else {
     res.status(500).json({
-      message: "Category id not available add it first"
+      message: "Product Not found"
     })
   }
 }
 
-const deleteCategory = async (req, res) => {
+const deleteProduct = async (req, res) => {
   let { id } = req.params
-  let response = await db.category.destroy({
+  let response = await product.destroy({
     where: {
       id: id,
     },
   });
   if (response) {
     res.status(200).json({
-      message: "deleted successfully"
+      message: "Product deleted successfully"
     })
   } else {
     res.status(500).json({
-      message: "not found"
+      message: "Product not found"
     })
   }
 }
 
 module.exports = {
   createProduct,
+  productById,
   findAllProduct,
-  updateCategory,
-  deleteCategory
+  updateProduct,
+  deleteProduct
 }
