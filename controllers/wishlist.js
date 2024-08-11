@@ -15,7 +15,7 @@ const createWish = async (req, res) => {
 const findWishById = async (req, res) => {
     let userId = req.decoded.id;
 
-    const project = await db.wishList.findAll({ where: { userId: userId } });
+    const project = await db.wishList.findAll({ include: [{ model: db.product }], where: { userId: userId } });
     if (!project) {
         res.status(500).json({
             message: "Nothing in the wishlist"
@@ -27,40 +27,16 @@ const findWishById = async (req, res) => {
     }
 }
 
-const findAllWish = async (req, res) => {
-    const findAll = await db.wishList.findAll({
-        include: [{ model: db.product }, { model: db.users }],
-    });
-    res.status(200).json({
-        data: findAll
-    })
-}
+// const findAllWish = async (req, res) => {
+//     const findAll = await db.wishList.findAll({
+//         include: [{ model: db.product }, { model: db.users }],
+//     });
+//     res.status(200).json({
+//         data: findAll
+//     })
+// }
 
-const updateWish = async (req, res) => {
-    let { id } = req.params;
-    let { productId } = req.body;
 
-    const wish = await db.wishList.findByPk(id);
-    if (!wish) {
-        console.log('Not found!');
-        res.status(200).json({
-            message: "Not Found"
-        })
-    } else {
-        const update = await db.wishList.update(
-            { productId: productId },
-            {
-                where: {
-                    id: id,
-                },
-            },
-        );
-        res.status(500).json({
-            update
-        })
-    }
-
-}
 
 const deleteWish = async (req, res) => {
     let { id } = req.params
@@ -84,7 +60,5 @@ const deleteWish = async (req, res) => {
 module.exports = {
     createWish,
     findWishById,
-    findAllWish,
-    updateWish,
     deleteWish
 }
