@@ -27,16 +27,6 @@ const findWishById = async (req, res) => {
     }
 }
 
-// const findAllWish = async (req, res) => {
-//     const findAll = await db.wishList.findAll({
-//         include: [{ model: db.product }, { model: db.users }],
-//     });
-//     res.status(200).json({
-//         data: findAll
-//     })
-// }
-
-
 
 const deleteWish = async (req, res) => {
     let { id } = req.params
