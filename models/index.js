@@ -28,6 +28,7 @@ db.category = require("./category")(sequelize, Sequelize);
 db.product = require('./product')(sequelize, Sequelize)
 db.wishList = require('./wishlist')(sequelize, Sequelize);
 db.cart = require('./cart')(sequelize, Sequelize);
+db.order = require('./order')(sequelize, Sequelize);
 
 db.users.hasOne(db.profile);
 db.profile.belongsTo(db.users)
@@ -44,5 +45,9 @@ db.users.hasMany(db.cart);
 db.cart.belongsTo(db.users);
 db.product.hasMany(db.cart);
 db.cart.belongsTo(db.product);
+db.users.hasMany(db.order);
+db.order.belongsTo(db.users);
+db.cart.hasMany(db.order);
+db.order.belongsTo(db.cart)
 
 module.exports = db;

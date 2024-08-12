@@ -7,6 +7,7 @@ const createProduct = async (req, res) => {
 
 
   let imagePaths = image.map((a)=> a.path)
+  console.log(imagePaths)
 
   const existingProduct = await product.findOne({where: {name: name}})
   if(!existingProduct){

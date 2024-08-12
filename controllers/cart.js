@@ -52,7 +52,7 @@ const viewCart = async (req, res) => {
     catch (error) {
         return res.status(500).json({
             message: "An error was occerd.",
-            error: error.message
+            error: error.message    
         });
     }
 }
@@ -64,7 +64,7 @@ const deleteCart = async (req, res) => {
         const response = await cart.destroy({ where: { id: cartId } })
         if (!response) {
             res.status(500).json({
-                message: "Cart was not deleted successfull"
+                message: "Cart was not deleted successfully"
             })
         } else {
             res.status(200).json({
