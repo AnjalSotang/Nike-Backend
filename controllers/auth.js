@@ -1,9 +1,6 @@
-const {where} = require("sequelize")
 const {users, profile, forget} = require("../models")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { isEmpty } = require('../utils/object_isEmpty');
-const AppError = require('../utils/error');
 const nodemailer = require('nodemailer');
 
 const register = async (req, res) => {
