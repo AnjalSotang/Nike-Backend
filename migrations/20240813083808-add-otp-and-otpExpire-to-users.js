@@ -1,19 +1,46 @@
 'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('users', 'otp', {
-      type: Sequelize.STRING,
-      allowNull: true,  // Adjust as needed
-    });
-    await queryInterface.addColumn('users', 'otpExpire', {
-      type: Sequelize.DATE,
-      allowNull: true,  // Adjust as needed
+    await queryInterface.createTable('Users', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
+      username: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      password: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      otp: {
+        type: Sequelize.STRING
+      },
+      otpExpire: {
+        type: Sequelize.DATE
+      },
+      role: {
+        type: Sequelize.STRING,
+        defaultValue: 'user'
+      },
+      createdAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      updatedAt: {
+        allowNull: false,
+        type: Sequelize.DATE
+      }
     });
   },
-
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('users', 'otp');
-    await queryInterface.removeColumn('users', 'otpExpire');
+    await queryInterface.dropTable('Users');
   }
 };
