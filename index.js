@@ -34,12 +34,16 @@ app.use("/api", routeProfile)
 
 const routeCategory = require("./routes/category");
 app.use("/api", routeCategory)
-
+A
 const routeProduct = require("./routes/product");
 app.use("/api", routeProduct)
 
 const routeWish = require("./routes/wishlist");
 app.use("/api", routeWish )
+
+const errorHandler = require('./utils/errorHandler');
+
+app.use(errorHandler);
 
 const createUser = async () => {
     let foundAdmin = await users.findOne({

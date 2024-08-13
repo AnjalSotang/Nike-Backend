@@ -9,4 +9,3 @@ router.get('/viewWish',checkTokenAndRole("user"), findWishById);
 router.delete('/deleteWish/:id', checkTokenAndRole("user", deleteWish));
 
 module.exports= router;
-

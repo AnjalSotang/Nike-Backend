@@ -5,7 +5,7 @@ const createWish = async (req, res) => {
 
     let userId = req.decoded.id
 
-    const response = await db.wishList.create({ productId: id, userId: userId });
+    const response = await db.wishList.create({ ProductId: id, userId: userId });
     res.status(200).json({
         message: "Product Added to the wish list",
         data: response

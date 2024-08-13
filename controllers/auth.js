@@ -2,6 +2,9 @@ const {where} = require("sequelize")
 const {users, profile} = require("../models")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const { isEmpty } = require('../utils/object_isEmpty');
+const AppError = require('../utils/error');
+const nodemailer = require('nodemailer');
 
 const register = async (req, res) => {
     const { username, email, password } = req.body;
@@ -73,7 +76,56 @@ const login = async (req, res) => {
 
 }
 
+const user_forgotPassword = async (req, res, next) => {
+    let {email} = req.body;
+    const existingEmail = await users.findOne({where: {email: email}})
+
+    const generateOTP = () => {
+        return Math.floor(1000 + Math.random() * 9000).toString();
+    };
+    
+    if(!existingEmail){
+        res.status(500).json({
+            message: "Email doesn't exists"
+        })
+    }
+
+    const transporter = nodemailer.createTransport({
+        service: "Gmail",
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: {
+          user: "anjalsotang26@gmail.com",
+          pass: "nzbr fipe dbka xryp",
+        },
+      });
+    
+    
+      const mailOptions = {
+        from: "anjalsotang26@gmail.com",
+        to: "anjalsotang26@gmail.com",
+        subject: "Hello from Nodemailer",
+        text: "This is a test email sent using Nodemailer.",
+        OTP: generateOTP()
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(`Error: ${error}`);
+        }
+        console.log(`Message Sent: ${info.response}`);
+    });
+    
+
+    
+}
+
+
+     
+
 module.exports= {
     register,
-    login
+    login,
+    user_forgotPassword
 }
