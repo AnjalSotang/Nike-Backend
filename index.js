@@ -41,9 +41,7 @@ app.use("/api", routeProduct)
 const routeWish = require("./routes/wishlist");
 app.use("/api", routeWish )
 
-const errorHandler = require('./utils/errorHandler');
 
-app.use(errorHandler);
 
 const createUser = async () => {
     let foundAdmin = await users.findOne({

@@ -1,5 +1,5 @@
 const {where} = require("sequelize")
-const {users, profile} = require("../models")
+const {users, profile, forget} = require("../models")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { isEmpty } = require('../utils/object_isEmpty');
@@ -80,10 +80,8 @@ const user_forgotPassword = async (req, res, next) => {
     let {email} = req.body;
     const existingEmail = await users.findOne({where: {email: email}})
 
-    const generateOTP = () => {
-        return Math.floor(1000 + Math.random() * 9000).toString();
-    };
-    
+    const otp = Math.floor(1000 + Math.random() * 9000);
+
     if(!existingEmail){
         res.status(500).json({
             message: "Email doesn't exists"
@@ -107,18 +105,19 @@ const user_forgotPassword = async (req, res, next) => {
         to: "anjalsotang26@gmail.com",
         subject: "Hello from Nodemailer",
         text: "This is a test email sent using Nodemailer.",
-        OTP: generateOTP()
+        OTP: `Your OTP (It is expired after 1 min) : ${otp}`
       };
 
       transporter.sendMail(mailOptions, (error, info) => {
         if (error) {
             return console.log(`Error: ${error}`);
         }
-        console.log(`Message Sent: ${info.response}`);
-    });
-    
-
-    
+        else {
+            res.json({
+                data: "Your OTP send to the email"
+            })
+    };
+})
 }
 
 

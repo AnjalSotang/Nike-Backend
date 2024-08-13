@@ -29,6 +29,7 @@ db.product = require('./product')(sequelize, Sequelize)
 db.wishList = require('./wishlist')(sequelize, Sequelize);
 db.cart = require('./cart')(sequelize, Sequelize);
 db.order = require('./order')(sequelize, Sequelize);
+db.forget = require('./forgetPassword')(sequelize, Sequelize)
 
 db.users.hasOne(db.profile);
 db.profile.belongsTo(db.users)
