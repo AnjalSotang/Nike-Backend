@@ -34,7 +34,7 @@ app.use("/api", routeProfile)
 
 const routeCategory = require("./routes/category");
 app.use("/api", routeCategory)
-A
+
 const routeProduct = require("./routes/product");
 app.use("/api", routeProduct)
 
