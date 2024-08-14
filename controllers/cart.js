@@ -61,23 +61,24 @@ const deleteCart = async (req, res) => {
     let cartId = req.params.id;
 
     try {
-        const response = await cart.destroy({ where: { id: cartId } })
-        if (!response) {
-            res.status(500).json({
-                message: "Cart was not deleted successfully"
-            })
+        const response = await cart.destroy({ where: { id: cartId } });
+        if (response === 0) {
+            res.status(404).json({
+                message: "Cart not found or could not be deleted"
+            });
         } else {
             res.status(200).json({
-                message: response
-            })
+                message: "Cart deleted successfully"
+            });
         }
     } catch (error) {
         return res.status(500).json({
-            message: "An error was occerd.",
+            message: "An error occurred.",
             error: error.message
         });
     }
-}
+};
+
 
 module.exports = {
     createCart,
