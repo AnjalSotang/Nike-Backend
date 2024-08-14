@@ -9,7 +9,7 @@ const createWish = async (req, res) => {
 
     const response = await db.wishList.create({ ProductId: id, UserId: userId });
     res.status(200).json({
-        message: "Product Added to the wish list",
+        message: "Product Added to the wishlist",
         data: response
     })
 }
@@ -36,14 +36,14 @@ const deleteWish = async (req, res) => {
       where: {
         id: id,
       },
-    });
+    });   
     if (response) {
       res.status(200).json({
-        message: "Product deleted successfully"
+        message: "Wishlist deleted successfully"
       })
     } else {
       res.status(500).json({
-        message: "Product not found"
+        message: "Wishlist not found"
       })
     }
   }

@@ -1,4 +1,4 @@
-const { users, profile } = require("../models")
+const { users, profile, Sequelize } = require("../models")
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const nodemailer = require('nodemailer');
@@ -189,8 +189,10 @@ const resetPassword = async (req, res) => {
         });
 
     } catch (err) {
+        console.log(err)
         return res.status(500).json({
-            message: "Something went wrong"
+            message: "Something went wrong",
+            err: err
         });
     }
 };

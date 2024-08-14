@@ -4,9 +4,9 @@ const { checkTokenAndRole } = require("../middleware/checkTokenAndRole");
 const router = express.Router()
 
 
-router.post('/createWish/:id', checkTokenAndRole("user"), createCart);
-router.get('/viewWish',checkTokenAndRole("user"), viewCart);
-router.delete('/deleteWish/:id', checkTokenAndRole("user", deleteCart));
+router.post('/createCart/:id', checkTokenAndRole("user"), createCart);
+router.get('/viewCart',checkTokenAndRole("user"), viewCart);
+router.delete('/deleteCart/:id', checkTokenAndRole("user", deleteCart));
 
 module.exports= router;
 

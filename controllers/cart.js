@@ -14,7 +14,7 @@ const createCart = async (req, res) => {
         }
 
         const create = await cart.create({
-            quantity: quantity, productId: id, UserId: userId
+            quantity: quantity, ProductId: id, UserId: userId
         })
 
         if (!create) {
