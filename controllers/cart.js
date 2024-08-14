@@ -14,7 +14,7 @@ const createCart = async (req, res) => {
         }
 
         const create = await cart.create({
-            quantity: quantity, productId: id, userId: userId
+            quantity: quantity, productId: id, UserId: userId
         })
 
         if (!create) {
@@ -38,7 +38,7 @@ const viewCart = async (req, res) => {
     let userId = req.decoded.id;
 
     try {
-        const response = await cart.findAll({ include: [{ model: product }], where: { userId: userId } })
+        const response = await cart.findAll({ include: [{ model: product }], where: { UserId: userId } })
         if (!response) {
             res.status(500).json({
                 message: "Cart details can't be shown!"
