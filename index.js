@@ -7,7 +7,7 @@ const cors = require('cors')
 require('dotenv').config();
 
 
-sequelize.sync({ force: 0});
+sequelize.sync({ force: 1});
 
 
 app.use(cors({
