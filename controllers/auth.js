@@ -7,15 +7,24 @@ const register = async (req, res) => {
     const { username, email, password } = req.body;
 
     try {
+        // Check if the user already exists
         const existingUser = await users.findOne({ where: { email } });
+
         if (!existingUser) {
+            // Hash the password
             const hashedPassword = await bcrypt.hash(password, 8);
-            const newUser = await users.create({ username: username, email: email, password: hashedPassword });
+
+            // Create the new user
+            const newUser = await users.create({ 
+                username, 
+                email, 
+                password: hashedPassword 
+            });
 
             // Create the profile associated with the new user
             const newProfile = await profile.create({
                 userId: newUser.id, // Link the profile to the new user
-                username: username
+                username
             });
 
             return res.status(201).json({
@@ -25,10 +34,11 @@ const register = async (req, res) => {
             });
         } else {
             return res.status(409).json({
-                message: "Registration not successful! Try another email."
+                message: "Registration not successful! Email is already in use."
             });
         }
     } catch (error) {
+        console.error('Error during registration:', error);
         return res.status(500).json({
             message: "An error occurred during registration.",
             error: error.message
