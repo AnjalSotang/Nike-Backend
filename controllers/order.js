@@ -1,4 +1,4 @@
-const { where } = require("sequelize");
+
 const db = require("../model");
 
 const createOrder = async (req, res) => {
@@ -8,7 +8,7 @@ const createOrder = async (req, res) => {
     try{
         const response = await db.order.create({ shippingAddress: shippingAddress, status: status, productId: productId, userId: userId });
         if(!response){
-            res.status(500).json({
+            res.status(400).json({
                 message: "Sorry order was not placed!"
             })
         }else{

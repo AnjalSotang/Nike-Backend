@@ -44,6 +44,9 @@ app.use("/api", routeWish )
 const routeCart = require("./routes/cart");
 app.use("/api", routeCart )
 
+const routePayment = require("./routes/payment");
+app.use("/api", routePayment )
+
 
 const createUser = async () => {
     let foundAdmin = await users.findOne({
